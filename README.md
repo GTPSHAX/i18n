@@ -55,8 +55,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(i18n)
 
-# Link to your target
-target_link_libraries(your_target PRIVATE i18n)
+target_include_directories(test-i18n PRIVATE
+  ${i18n_SOURCE_DIR}/include
+  # ${i18n_SOURCE_DIR}/external/json/single_include # (Optional)
+)
 ```
 
 ## Quick Start
@@ -98,28 +100,6 @@ int main() {
     return 0;
 }
 ```
-
-## API Reference
-
-### Class: `I18n`
-
-#### Constructors
-
-- `I18n()` - Default constructor
-- `I18n(const nlohmann::json& json)` - Initialize with JSON object
-- `I18n(const std::string& filePath)` - Load translations from JSON file
-
-#### Methods
-
-- `T get<T>(const std::string& path, std::string langCode, T defaultValue)` - Get translation with type conversion
-- `T t<T>(const std::string& path, std::string langCode = "en", T defaultValue = T{})` - Shorthand translation method
-
-### Parameters
-
-- `path`: Dot-separated path to translation key (e.g., `"user.name"`)
-- `langCode`: Language code (e.g., `"en"`, `"id"`, `"fr"`)
-- `defaultValue`: Fallback value if translation not found
-- `T`: Template parameter for return type (automatically deduced)
 
 ## Usage Examples
 
