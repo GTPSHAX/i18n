@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['recommended_0',['Option 1: Header-only (Recommended)',['../index.html#autotoc_md4',1,'']]],
-  ['reference_1',['API Reference',['../index.html#autotoc_md7',1,'']]],
-  ['resolvepath_2',['resolvePath',['../structI18n.html#aaac7e590e1948bd799683660ce70a02d',1,'I18n']]],
-  ['retrieval_3',['Type-safe Translation Retrieval',['../index.html#autotoc_md14',1,'']]]
+  ['safe_20translation_20retrieval_0',['Type-safe Translation Retrieval',['../index.html#autotoc_md9',1,'']]],
+  ['setup_1',['Development Setup',['../index.html#autotoc_md21',1,'']]],
+  ['start_2',['Quick Start',['../index.html#autotoc_md6',1,'']]],
+  ['structure_3',['Project Structure',['../index.html#autotoc_md19',1,'']]],
+  ['style_4',['Code Style',['../index.html#autotoc_md22',1,'']]],
+  ['support_5',['Support',['../index.html#autotoc_md25',1,'']]]
 ];

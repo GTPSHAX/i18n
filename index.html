@@ -147,8 +147,10 @@ Option 2: CMake Integration</h2>
 <div class="line">)</div>
 <div class="line">FetchContent_MakeAvailable(i18n)</div>
 <div class="line"> </div>
-<div class="line"># Link to your target</div>
-<div class="line">target_link_libraries(your_target PRIVATE i18n)</div>
+<div class="line">target_include_directories(test-i18n PRIVATE</div>
+<div class="line">  ${i18n_SOURCE_DIR}/include</div>
+<div class="line">  # ${i18n_SOURCE_DIR}/external/json/single_include # (Optional)</div>
+<div class="line">)</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Quick Start</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
@@ -188,33 +190,8 @@ Quick Start</h1>
 <div class="line">}</div>
 <div class="ttc" id="astructI18n_html"><div class="ttname"><a href="structI18n.html">I18n</a></div><div class="ttdoc">Internationalization (i18n) struct for managing translations.</div><div class="ttdef"><b>Definition</b> i18n.hpp:42</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
-API Reference</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Class: <code>I18n</code></h2>
-<h3><a class="anchor" id="autotoc_md9"></a>
-Constructors</h3>
-<ul>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n()</a></code> - Default constructor</li>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const nlohmann::json&amp; json)</code> - Initialize with JSON object</li>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const std::string&amp; filePath)</code> - Load translations from JSON file</li>
-</ul>
-<h3><a class="anchor" id="autotoc_md10"></a>
-Methods</h3>
-<ul>
-<li><code>T get&lt;T&gt;(const std::string&amp; path, std::string langCode, T defaultValue)</code> - Get translation with type conversion</li>
-<li><code>T t&lt;T&gt;(const std::string&amp; path, std::string langCode = "en", T defaultValue = T{})</code> - Shorthand translation method</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Parameters</h2>
-<ul>
-<li><code>path</code>: Dot-separated path to translation key (e.g., <code>"user.name"</code>)</li>
-<li><code>langCode</code>: Language code (e.g., <code>"en"</code>, <code>"id"</code>, <code>"fr"</code>)</li>
-<li><code>defaultValue</code>: Fallback value if translation not found</li>
-<li><code>T</code>: Template parameter for return type (automatically deduced)</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
 Usage Examples</h1>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Loading from File</h2>
 <div class="fragment"><div class="line"><span class="comment">// translations.json</span></div>
 <div class="line">{</div>
@@ -239,7 +216,7 @@ Loading from File</h2>
 <div class="line"><span class="comment">// C++ code</span></div>
 <div class="line"><a class="code hl_struct" href="structI18n.html">I18n</a> i18n(<span class="stringliteral">&quot;translations.json&quot;</span>);</div>
 <div class="line">std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;welcome&quot;</span>, <span class="stringliteral">&quot;es&quot;</span>) &lt;&lt; std::endl;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Type-safe Translation Retrieval</h2>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structI18n.html">I18n</a> i18n(translations);</div>
 <div class="line"> </div>
@@ -254,7 +231,7 @@ Type-safe Translation Retrieval</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Custom default values</span></div>
 <div class="line">std::string fallback = i18n.t(<span class="stringliteral">&quot;missing.key&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, <span class="stringliteral">&quot;Default text&quot;</span>);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
 Error Handling</h2>
 <div class="fragment"><div class="line"><span class="keywordflow">try</span> {</div>
 <div class="line">    <a class="code hl_struct" href="structI18n.html">I18n</a> i18n(<span class="stringliteral">&quot;nonexistent.json&quot;</span>);</div>
@@ -267,16 +244,16 @@ Error Handling</h2>
 <div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; e) {</div>
 <div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Invalid translation data: &quot;</span> &lt;&lt; e.what() &lt;&lt; std::endl;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
 Build Instructions</h1>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Prerequisites</h2>
 <ul>
 <li>CMake 3.10 or higher</li>
 <li>C++17 compatible compiler</li>
 <li><a href="https://github.com/nlohmann/json">nlohmann/json</a> library</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Building</h2>
 <div class="fragment"><div class="line"># Clone the repository</div>
 <div class="line">git clone https://github.com/GTPSHAX/i18n.git</div>
@@ -290,7 +267,7 @@ Building</h2>
 <div class="line"> </div>
 <div class="line"># Build</div>
 <div class="line">cmake --build . --config Release</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
 Integration with Your Project</h2>
 <p>Add to your <code>CMakeLists.txt</code>:</p>
 <div class="fragment"><div class="line"># Add include directories</div>
@@ -301,7 +278,7 @@ Integration with Your Project</h2>
 <div class="line"> </div>
 <div class="line"># Link the library (if built as shared/static)</div>
 <div class="line">target_link_libraries(your_target i18n)</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
 Testing</h1>
 <p>The project includes a test suite to verify functionality:</p>
 <div class="fragment"><div class="line"># From build directory</div>
@@ -310,10 +287,10 @@ Testing</h1>
 <div class="line">./i18nTest</div>
 </div><!-- fragment --><p>Expected output: </p><div class="fragment"><div class="line">Hello</div>
 <div class="line">Halo</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
 Documentation</h1>
 <p>Complete API documentation is automatically generated using Doxygen and hosted on GitHub Pages.</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Local Documentation Generation</h2>
 <div class="fragment"><div class="line"># Install Doxygen</div>
 <div class="line"># On Ubuntu/Debian:</div>
@@ -327,7 +304,7 @@ Local Documentation Generation</h2>
 <div class="line"> </div>
 <div class="line"># Open documentation</div>
 <div class="line">open docs/html/index.html</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
 Dependencies</h1>
 <ul>
 <li><b><a href="https://github.com/nlohmann/json">nlohmann/json</a></b> - JSON parsing library</li>
@@ -335,7 +312,7 @@ Dependencies</h1>
 <li><b>CMake 3.10+</b> - Build system (optional, header-only usage)</li>
 </ul>
 <p>The nlohmann/json library is included as a git submodule in the <code>external/json/</code> directory.</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Project Structure</h1>
 <div class="fragment"><div class="line">i18n-cpp/</div>
 <div class="line">├── include/i18n/           # Header files</div>
@@ -352,10 +329,10 @@ Project Structure</h1>
 <div class="line">├── Doxyfile              # Doxygen configuration</div>
 <div class="line">├── LICENSE.MIT           # MIT License</div>
 <div class="line">└── README.md             # This file</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
 Contributing</h1>
 <p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 Development Setup</h2>
 <ol type="1">
 <li>Fork the repository</li>
@@ -368,7 +345,7 @@ Development Setup</h2>
 <li><code>Push to the branch:</code>git push origin feature/your-feature`</li>
 <li>Submit a pull request</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 Code Style</h2>
 <ul>
 <li>Use C++17 features where appropriate</li>
@@ -376,17 +353,17 @@ Code Style</h2>
 <li>Add documentation for new public APIs</li>
 <li>Include unit tests for new functionality</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 License</h1>
 <p>This project is licensed under the MIT License - see the <a href="LICENSE.MIT">LICENSE.MIT</a> file for details.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Acknowledgments</h1>
 <ul>
 <li><a href="https://github.com/nlohmann/json">nlohmann/json</a> - JSON library for modern C++</li>
 <li><a href="https://www.doxygen.nl/">Doxygen</a> - Documentation generation tool</li>
 <li><a href="https://cmake.org/">CMake</a> - Build system</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Support</h1>
 <p>If you find this library useful, please consider giving it a ⭐ star on GitHub!</p>
 <p>For questions or issues, please <a href="https://github.com/GTPSHAX/i18n/issues">open an issue</a> on GitHub. </p>
