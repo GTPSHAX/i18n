@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['key_20classes_0',['Key Classes',['../index.html#autotoc_md11',1,'']]],
-  ['key_20methods_1',['Key Methods',['../index.html#autotoc_md12',1,'']]]
+  ['handling_0',['Error Handling',['../index.html#autotoc_md15',1,'']]],
+  ['header_20only_20recommended_1',['Option 1: Header-only (Recommended)',['../index.html#autotoc_md4',1,'']]]
 ];

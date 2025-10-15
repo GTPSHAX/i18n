@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['get_0',['get',['../structI18n.html#ab21042172a5fafecdea5a10cfd2dd4d9',1,'I18n']]]
+  ['error_20handling_0',['Error Handling',['../index.html#autotoc_md15',1,'']]],
+  ['examples_1',['Usage Examples',['../index.html#autotoc_md12',1,'']]]
 ];

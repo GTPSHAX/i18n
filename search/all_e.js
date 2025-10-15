@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['t_0',['t',['../structI18n.html#a3cbc6b61d0a0607700af22b065ed7203',1,'I18n']]],
-  ['translations_1',['translations',['../structI18n.html#a141cf30f456a988897012f42abe8487b',1,'I18n']]]
+  ['parameters_0',['Parameters',['../index.html#autotoc_md11',1,'']]],
+  ['prerequisites_1',['Prerequisites',['../index.html#autotoc_md17',1,'']]],
+  ['project_2',['Integration with Your Project',['../index.html#autotoc_md19',1,'']]],
+  ['project_20structure_3',['Project Structure',['../index.html#autotoc_md24',1,'']]]
 ];

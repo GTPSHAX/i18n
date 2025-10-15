@@ -26,23 +26,42 @@ var NAVTREE =
 [
   [ "i18n", "index.html", [
     [ "Features", "index.html#autotoc_md1", null ],
-    [ "Installation", "index.html#autotoc_md2", [
-      [ "Prerequisites", "index.html#autotoc_md3", null ],
-      [ "Building", "index.html#autotoc_md4", null ]
+    [ "Table of Contents", "index.html#autotoc_md2", null ],
+    [ "Installation", "index.html#autotoc_md3", [
+      [ "Option 1: Header-only (Recommended)", "index.html#autotoc_md4", null ],
+      [ "Option 2: CMake Integration", "index.html#autotoc_md5", null ]
     ] ],
-    [ "Usage", "index.html#autotoc_md5", [
-      [ "Basic Example", "index.html#autotoc_md6", null ],
-      [ "Loading from File", "index.html#autotoc_md7", null ],
-      [ "JSON File Format", "index.html#autotoc_md8", null ],
-      [ "Advanced Usage", "index.html#autotoc_md9", null ]
+    [ "Quick Start", "index.html#autotoc_md6", null ],
+    [ "API Reference", "index.html#autotoc_md7", [
+      [ "Class: I18n", "index.html#autotoc_md8", [
+        [ "Constructors", "index.html#autotoc_md9", null ],
+        [ "Methods", "index.html#autotoc_md10", null ]
+      ] ],
+      [ "Parameters", "index.html#autotoc_md11", null ]
     ] ],
-    [ "API Reference", "index.html#autotoc_md10", [
-      [ "Key Classes", "index.html#autotoc_md11", null ],
-      [ "Key Methods", "index.html#autotoc_md12", null ]
+    [ "Usage Examples", "index.html#autotoc_md12", [
+      [ "Loading from File", "index.html#autotoc_md13", null ],
+      [ "Type-safe Translation Retrieval", "index.html#autotoc_md14", null ],
+      [ "Error Handling", "index.html#autotoc_md15", null ]
     ] ],
-    [ "Contributing", "index.html#autotoc_md13", null ],
-    [ "License", "index.html#autotoc_md14", null ],
-    [ "Dependencies", "index.html#autotoc_md15", null ],
+    [ "Build Instructions", "index.html#autotoc_md16", [
+      [ "Prerequisites", "index.html#autotoc_md17", null ],
+      [ "Building", "index.html#autotoc_md18", null ],
+      [ "Integration with Your Project", "index.html#autotoc_md19", null ]
+    ] ],
+    [ "Testing", "index.html#autotoc_md20", null ],
+    [ "Documentation", "index.html#autotoc_md21", [
+      [ "Local Documentation Generation", "index.html#autotoc_md22", null ]
+    ] ],
+    [ "Dependencies", "index.html#autotoc_md23", null ],
+    [ "Project Structure", "index.html#autotoc_md24", null ],
+    [ "Contributing", "index.html#autotoc_md25", [
+      [ "Development Setup", "index.html#autotoc_md26", null ],
+      [ "Code Style", "index.html#autotoc_md27", null ]
+    ] ],
+    [ "License", "index.html#autotoc_md28", null ],
+    [ "Acknowledgments", "index.html#autotoc_md29", null ],
+    [ "Support", "index.html#autotoc_md30", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

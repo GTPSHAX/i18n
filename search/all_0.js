@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['advanced_20usage_0',['Advanced Usage',['../index.html#autotoc_md9',1,'']]],
-  ['api_20reference_1',['API Reference',['../index.html#autotoc_md10',1,'']]]
+  ['1_3a_20header_20only_20recommended_0',['Option 1: Header-only (Recommended)',['../index.html#autotoc_md4',1,'']]]
 ];

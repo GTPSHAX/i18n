@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['json_20file_20format_0',['JSON File Format',['../index.html#autotoc_md8',1,'']]]
+  ['generation_0',['Local Documentation Generation',['../index.html#autotoc_md22',1,'']]],
+  ['get_1',['get',['../structI18n.html#ab21042172a5fafecdea5a10cfd2dd4d9',1,'I18n']]]
 ];

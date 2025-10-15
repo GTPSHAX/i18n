@@ -29,7 +29,7 @@
   <td id="projectalign">
    <div id="projectname">i18n
    </div>
-   <div id="projectbrief">An internationalization (i18n) library for C++</div>
+   <div id="projectbrief">A lightweight, header-only internationalization (i18n) library for C++ that provides easy-to-use translation management with JSON-based locale support.</div>
   </td>
  </tr>
  </tbody>
@@ -101,149 +101,295 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<p>A lightweight internationalization (i18n) library written in C++ that simplifies managing translations for multiple locales using JSON.</p>
+<p><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" style="pointer-events: none;" class="inline"/></a> <a href="https://en.wikipedia.org/wiki/C%2B%2B17"><img src="https://img.shields.io/badge/C%2B%2B-17-blue.svg" alt="C++17" style="pointer-events: none;" class="inline"/></a> <a href="https://cmake.org/"><img src="https://img.shields.io/badge/CMake-3.10+-blue.svg" alt="CMake" style="pointer-events: none;" class="inline"/></a></p>
+<p>A lightweight, header-only internationalization (i18n) library for C++ that provides easy-to-use translation management with JSON-based locale support.</p>
+<p><a href="https://gtpshax.github.io/i18n/">View Documentation</a></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Features</h1>
 <ul>
-<li><b>Simple API</b>: Easy-to-use interface for loading and retrieving translations.</li>
-<li><b>JSON Support</b>: Utilizes the nlohmann/json library for handling translation data.</li>
-<li><b>Multiple Locales</b>: Supports multiple language codes (e.g., "en", "id").</li>
-<li><b>Fallback Mechanism</b>: Automatically falls back to English ("en") if the requested translation is not available.</li>
-<li><b>File and In-Memory Loading</b>: Load translations from JSON files or directly from nlohmann::json objects.</li>
-<li><b>Type-Safe Retrieval</b>: Template-based methods for retrieving translations with default values.</li>
-<li><b>Warning System</b>: Warns if content is only available in one locale.</li>
+<li><b>Header-only</b>: No need for separate compilation</li>
+<li><b>JSON-based</b>: Uses nlohmann/json for robust JSON parsing</li>
+<li><b>Dot-notation paths</b>: Access nested translations with dot-separated keys like <code>main.content</code> or <code>main.title</code></li>
+<li><b>Type-safe</b>: Template-based translation retrieval with automatic type conversion</li>
+<li><b>Error handling</b>: Comprehensive exception handling for invalid data</li>
+<li><b>Well-documented</b>: Complete Doxygen documentation</li>
+<li><b>Tested</b>: Includes unit tests and examples</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md2"></a>
-Installation</h1>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Prerequisites</h2>
+Table of Contents</h1>
 <ul>
-<li>C++17 or later</li>
-<li><a href="https://github.com/nlohmann/json">nlohmann/json</a> library (included as a submodule in <code>external/json</code>)</li>
+<li>Installation</li>
+<li>Quick Start</li>
+<li>API Reference</li>
+<li>Usage Examples</li>
+<li>Build Instructions</li>
+<li>Testing</li>
+<li>Documentation</li>
+<li>Dependencies</li>
+<li>Contributing</li>
+<li>License</li>
 </ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Installation</h1>
 <h2><a class="anchor" id="autotoc_md4"></a>
-Building</h2>
-<ol type="1">
-<li>Clone the repository with submodules: <div class="fragment"><div class="line">git clone --recursive https://github.com/GTPSHAX/i18n-cpp.git</div>
-<div class="line">cd i18n-cpp</div>
-</div><!-- fragment --></li>
-<li>Build using CMake: <div class="fragment"><div class="line">mkdir build</div>
-<div class="line">cd build</div>
-<div class="line">cmake ..</div>
-<div class="line">cmake --build .</div>
-</div><!-- fragment --></li>
-<li>Include the headers in your project: <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;i18n/i18n.hpp&gt;</span></div>
-</div><!-- fragment --></li>
-</ol>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Usage</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Basic Example</h2>
+Option 1: Header-only (Recommended)</h2>
+<p>Simply copy the <code>include/i18n/</code> directory to your project and include the headers:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;i18n/i18n.hpp&gt;</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+Option 2: CMake Integration</h2>
+<p>Add this project as a subdirectory or use FetchContent:</p>
+<div class="fragment"><div class="line"># Using FetchContent</div>
+<div class="line">include(FetchContent)</div>
+<div class="line">FetchContent_Declare(</div>
+<div class="line">  i18n</div>
+<div class="line">  GIT_REPOSITORY https://github.com/GTPSHAX/i18n.git</div>
+<div class="line">  GIT_TAG main</div>
+<div class="line">)</div>
+<div class="line">FetchContent_MakeAvailable(i18n)</div>
+<div class="line"> </div>
+<div class="line"># Link to your target</div>
+<div class="line">target_link_libraries(your_target PRIVATE i18n)</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
+Quick Start</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;i18n/i18n.hpp&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    <span class="comment">// Create translation data</span></div>
 <div class="line">    nlohmann::json translations = {</div>
-<div class="line">        {<span class="stringliteral">&quot;en&quot;</span>, {{<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;Hello&quot;</span>}, {<span class="stringliteral">&quot;farewell&quot;</span>, <span class="stringliteral">&quot;Goodbye&quot;</span>}}},</div>
-<div class="line">        {<span class="stringliteral">&quot;id&quot;</span>, {{<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;Halo&quot;</span>}, {<span class="stringliteral">&quot;farewell&quot;</span>, <span class="stringliteral">&quot;Selamat tinggal&quot;</span>}}}</div>
+<div class="line">        {<span class="stringliteral">&quot;en&quot;</span>, {</div>
+<div class="line">            {<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;Hello&quot;</span>},</div>
+<div class="line">            {<span class="stringliteral">&quot;farewell&quot;</span>, <span class="stringliteral">&quot;Goodbye&quot;</span>},</div>
+<div class="line">            {<span class="stringliteral">&quot;user&quot;</span>, {</div>
+<div class="line">                {<span class="stringliteral">&quot;name&quot;</span>, <span class="stringliteral">&quot;Name&quot;</span>},</div>
+<div class="line">                {<span class="stringliteral">&quot;email&quot;</span>, <span class="stringliteral">&quot;Email&quot;</span>}</div>
+<div class="line">            }}</div>
+<div class="line">        }},</div>
+<div class="line">        {<span class="stringliteral">&quot;id&quot;</span>, {</div>
+<div class="line">            {<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;Halo&quot;</span>},</div>
+<div class="line">            {<span class="stringliteral">&quot;farewell&quot;</span>, <span class="stringliteral">&quot;Selamat tinggal&quot;</span>},</div>
+<div class="line">            {<span class="stringliteral">&quot;user&quot;</span>, {</div>
+<div class="line">                {<span class="stringliteral">&quot;name&quot;</span>, <span class="stringliteral">&quot;Nama&quot;</span>},</div>
+<div class="line">                {<span class="stringliteral">&quot;email&quot;</span>, <span class="stringliteral">&quot;Email&quot;</span>}</div>
+<div class="line">            }}</div>
+<div class="line">        }}</div>
 <div class="line">    };</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Initialize I18n object</span></div>
+<div class="line">    <span class="comment">// Initialize i18n</span></div>
 <div class="line">    <a class="code hl_struct" href="structI18n.html">I18n</a> i18n(translations);</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Retrieve translations</span></div>
-<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>) &lt;&lt; std::endl; <span class="comment">// Output: Hello</span></div>
-<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;id&quot;</span>) &lt;&lt; std::endl; <span class="comment">// Output: Halo</span></div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// With default value</span></div>
-<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;unknown&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, <span class="stringliteral">&quot;Default&quot;</span>) &lt;&lt; std::endl; <span class="comment">// Output: Default</span></div>
+<div class="line">    <span class="comment">// Use translations</span></div>
+<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>) &lt;&lt; std::endl;    <span class="comment">// &quot;Hello&quot;</span></div>
+<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;id&quot;</span>) &lt;&lt; std::endl;    <span class="comment">// &quot;Halo&quot;</span></div>
+<div class="line">    std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;user.name&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>) &lt;&lt; std::endl;   <span class="comment">// &quot;Name&quot;</span></div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="astructI18n_html"><div class="ttname"><a href="structI18n.html">I18n</a></div><div class="ttdoc">Internationalization (i18n) struct for managing translations.</div><div class="ttdef"><b>Definition</b> i18n.hpp:42</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+API Reference</h1>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Class: <code>I18n</code></h2>
+<h3><a class="anchor" id="autotoc_md9"></a>
+Constructors</h3>
+<ul>
+<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n()</a></code> - Default constructor</li>
+<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const nlohmann::json&amp; json)</code> - Initialize with JSON object</li>
+<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const std::string&amp; filePath)</code> - Load translations from JSON file</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Methods</h3>
+<ul>
+<li><code>T get&lt;T&gt;(const std::string&amp; path, std::string langCode, T defaultValue)</code> - Get translation with type conversion</li>
+<li><code>T t&lt;T&gt;(const std::string&amp; path, std::string langCode = "en", T defaultValue = T{})</code> - Shorthand translation method</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Parameters</h2>
+<ul>
+<li><code>path</code>: Dot-separated path to translation key (e.g., <code>"user.name"</code>)</li>
+<li><code>langCode</code>: Language code (e.g., <code>"en"</code>, <code>"id"</code>, <code>"fr"</code>)</li>
+<li><code>defaultValue</code>: Fallback value if translation not found</li>
+<li><code>T</code>: Template parameter for return type (automatically deduced)</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md12"></a>
+Usage Examples</h1>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Loading from File</h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;i18n/i18n.hpp&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">    <span class="keywordflow">try</span> {</div>
-<div class="line">        <span class="comment">// Load from JSON file</span></div>
-<div class="line">        <a class="code hl_struct" href="structI18n.html">I18n</a> i18n(<span class="stringliteral">&quot;path/to/translations.json&quot;</span>);</div>
-<div class="line"> </div>
-<div class="line">        <span class="comment">// Use translations</span></div>
-<div class="line">        std::string greeting = i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>);</div>
-<div class="line">    } <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::exception&amp; e) {</div>
-<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; e.what() &lt;&lt; std::endl;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
-JSON File Format</h2>
-<p>Your <code>translations.json</code> should be structured like this:</p>
-<div class="fragment"><div class="line">{</div>
-<div class="line">  &quot;en&quot;: {</div>
-<div class="line">    &quot;greeting&quot;: &quot;Hello&quot;,</div>
-<div class="line">    &quot;farewell&quot;: &quot;Goodbye&quot;,</div>
-<div class="line">    &quot;user&quot;: {</div>
-<div class="line">      &quot;name&quot;: &quot;Name&quot;,</div>
-<div class="line">      &quot;age&quot;: &quot;Age&quot;</div>
+<div class="fragment"><div class="line"><span class="comment">// translations.json</span></div>
+<div class="line">{</div>
+<div class="line">  <span class="stringliteral">&quot;en&quot;</span>: {</div>
+<div class="line">    <span class="stringliteral">&quot;welcome&quot;</span>: <span class="stringliteral">&quot;Welcome to our app!&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;login&quot;</span>: {</div>
+<div class="line">      <span class="stringliteral">&quot;button&quot;</span>: <span class="stringliteral">&quot;Sign In&quot;</span>,</div>
+<div class="line">      <span class="stringliteral">&quot;username&quot;</span>: <span class="stringliteral">&quot;Username&quot;</span>,</div>
+<div class="line">      <span class="stringliteral">&quot;password&quot;</span>: <span class="stringliteral">&quot;Password&quot;</span></div>
 <div class="line">    }</div>
 <div class="line">  },</div>
-<div class="line">  &quot;id&quot;: {</div>
-<div class="line">    &quot;greeting&quot;: &quot;Halo&quot;,</div>
-<div class="line">    &quot;farewell&quot;: &quot;Selamat tinggal&quot;,</div>
-<div class="line">    &quot;user&quot;: {</div>
-<div class="line">      &quot;name&quot;: &quot;Nama&quot;,</div>
-<div class="line">      &quot;age&quot;: &quot;Usia&quot;</div>
+<div class="line">  <span class="stringliteral">&quot;es&quot;</span>: {</div>
+<div class="line">    <span class="stringliteral">&quot;welcome&quot;</span>: <span class="stringliteral">&quot;¡Bienvenido a nuestra aplicación!&quot;</span>,</div>
+<div class="line">    <span class="stringliteral">&quot;login&quot;</span>: {</div>
+<div class="line">      <span class="stringliteral">&quot;button&quot;</span>: <span class="stringliteral">&quot;Iniciar Sesión&quot;</span>,</div>
+<div class="line">      <span class="stringliteral">&quot;username&quot;</span>: <span class="stringliteral">&quot;Usuario&quot;</span>,</div>
+<div class="line">      <span class="stringliteral">&quot;password&quot;</span>: <span class="stringliteral">&quot;Contraseña&quot;</span></div>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
-Advanced Usage</h2>
-<div class="fragment"><div class="line"><span class="comment">// Retrieve nested translations</span></div>
-<div class="line">std::string userName = i18n.t(<span class="stringliteral">&quot;user.name&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>);</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Get with specific type</span></div>
-<div class="line"><span class="keywordtype">int</span> age = i18n.get(<span class="stringliteral">&quot;user.age&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, 0); <span class="comment">// Returns int, default 0</span></div>
+<div class="line"><span class="comment">// C++ code</span></div>
+<div class="line"><a class="code hl_struct" href="structI18n.html">I18n</a> i18n(<span class="stringliteral">&quot;translations.json&quot;</span>);</div>
+<div class="line">std::cout &lt;&lt; i18n.t(<span class="stringliteral">&quot;welcome&quot;</span>, <span class="stringliteral">&quot;es&quot;</span>) &lt;&lt; std::endl;</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
+Type-safe Translation Retrieval</h2>
+<div class="fragment"><div class="line"><a class="code hl_struct" href="structI18n.html">I18n</a> i18n(translations);</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Check availability in other locales</span></div>
-<div class="line"><span class="comment">// (Warnings are printed automatically if content is only in one locale)</span></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
-API Reference</h1>
-<p>For detailed API documentation, see the <a href="docs/html/index.html">Doxygen-generated docs</a>.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Key Classes</h2>
+<div class="line"><span class="comment">// String translations (default)</span></div>
+<div class="line">std::string greeting = i18n.t(<span class="stringliteral">&quot;greeting&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Integer translations</span></div>
+<div class="line"><span class="keywordtype">int</span> maxUsers = i18n.t&lt;<span class="keywordtype">int</span>&gt;(<span class="stringliteral">&quot;limits.users&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, 100);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Boolean translations</span></div>
+<div class="line"><span class="keywordtype">bool</span> featureEnabled = i18n.t&lt;<span class="keywordtype">bool</span>&gt;(<span class="stringliteral">&quot;features.logging&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Custom default values</span></div>
+<div class="line">std::string fallback = i18n.t(<span class="stringliteral">&quot;missing.key&quot;</span>, <span class="stringliteral">&quot;en&quot;</span>, <span class="stringliteral">&quot;Default text&quot;</span>);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
+Error Handling</h2>
+<div class="fragment"><div class="line"><span class="keywordflow">try</span> {</div>
+<div class="line">    <a class="code hl_struct" href="structI18n.html">I18n</a> i18n(<span class="stringliteral">&quot;nonexistent.json&quot;</span>);</div>
+<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; e) {</div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to load translations: &quot;</span> &lt;&lt; e.what() &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordflow">try</span> {</div>
+<div class="line">    <a class="code hl_struct" href="structI18n.html">I18n</a> i18n(invalid_json); <span class="comment">// Empty or malformed JSON</span></div>
+<div class="line">} <span class="keywordflow">catch</span> (<span class="keyword">const</span> std::runtime_error&amp; e) {</div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Invalid translation data: &quot;</span> &lt;&lt; e.what() &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
+Build Instructions</h1>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Prerequisites</h2>
 <ul>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a></code>: Main class for managing translations.</li>
+<li>CMake 3.10 or higher</li>
+<li>C++17 compatible compiler</li>
+<li><a href="https://github.com/nlohmann/json">nlohmann/json</a> library</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md12"></a>
-Key Methods</h2>
-<ul>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const std::string&amp; filePath)</code>: Constructor loading from JSON file.</li>
-<li><code><a class="el" href="structI18n.html" title="Internationalization (i18n) struct for managing translations.">I18n</a>(const nlohmann::json&amp; json)</code>: Constructor from JSON object.</li>
-<li><code>template&lt;typename T&gt; T get(const std::string&amp; path, std::string langCode, T defaultValue)</code>: Retrieve translation with type and default.</li>
-<li><code>template&lt;typename T&gt; T t(const std::string&amp; path, std::string langCode, T defaultValue)</code>: Shorthand for get, with default language handling.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md13"></a>
-Contributing</h1>
-<p>Contributions are welcome! Please follow these steps:</p>
-<ol type="1">
-<li>Fork the repository</li>
-<li>Create a feature branch (<code>git checkout -b feature/amazing-feature</code>)</li>
-<li>Commit your changes (&lsquo;git commit -m 'Add amazing feature&rsquo;<code>)</code></li>
-<li><code>Push to the branch (</code>git push origin feature/amazing-feature`)</li>
-<li>Open a Pull Request</li>
-</ol>
-<h1><a class="anchor" id="autotoc_md14"></a>
-License</h1>
-<p>This project is licensed under the MIT License - see the <a href="LICENSE.MIT">LICENSE.MIT</a> file for details.</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Building</h2>
+<div class="fragment"><div class="line"># Clone the repository</div>
+<div class="line">git clone https://github.com/GTPSHAX/i18n.git</div>
+<div class="line">cd i18n</div>
+<div class="line"> </div>
+<div class="line"># Create build directory</div>
+<div class="line">mkdir build &amp;&amp; cd build</div>
+<div class="line"> </div>
+<div class="line"># Configure with CMake</div>
+<div class="line">cmake ..</div>
+<div class="line"> </div>
+<div class="line"># Build</div>
+<div class="line">cmake --build . --config Release</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+Integration with Your Project</h2>
+<p>Add to your <code>CMakeLists.txt</code>:</p>
+<div class="fragment"><div class="line"># Add include directories</div>
+<div class="line">include_directories(path/to/i18n/include)</div>
+<div class="line"> </div>
+<div class="line"># Or add as subdirectory</div>
+<div class="line">add_subdirectory(path/to/i18n)</div>
+<div class="line"> </div>
+<div class="line"># Link the library (if built as shared/static)</div>
+<div class="line">target_link_libraries(your_target i18n)</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
+Testing</h1>
+<p>The project includes a test suite to verify functionality:</p>
+<div class="fragment"><div class="line"># From build directory</div>
+<div class="line">cd test</div>
+<div class="line">cmake --build . --config Release</div>
+<div class="line">./i18nTest</div>
+</div><!-- fragment --><p>Expected output: </p><div class="fragment"><div class="line">Hello</div>
+<div class="line">Halo</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+Documentation</h1>
+<p>Complete API documentation is automatically generated using Doxygen and hosted on GitHub Pages.</p>
+<h2><a class="anchor" id="autotoc_md22"></a>
+Local Documentation Generation</h2>
+<div class="fragment"><div class="line"># Install Doxygen</div>
+<div class="line"># On Ubuntu/Debian:</div>
+<div class="line">sudo apt-get install doxygen</div>
+<div class="line"> </div>
+<div class="line"># On macOS:</div>
+<div class="line">brew install doxygen</div>
+<div class="line"> </div>
+<div class="line"># Generate documentation</div>
+<div class="line">doxygen Doxyfile</div>
+<div class="line"> </div>
+<div class="line"># Open documentation</div>
+<div class="line">open docs/html/index.html</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
 Dependencies</h1>
 <ul>
-<li><a href="https://github.com/nlohmann/json">nlohmann/json</a> - JSON for Modern C++ </li>
+<li><b><a href="https://github.com/nlohmann/json">nlohmann/json</a></b> - JSON parsing library</li>
+<li><b>C++17</b> - Required C++ standard</li>
+<li><b>CMake 3.10+</b> - Build system (optional, header-only usage)</li>
 </ul>
+<p>The nlohmann/json library is included as a git submodule in the <code>external/json/</code> directory.</p>
+<h1><a class="anchor" id="autotoc_md24"></a>
+Project Structure</h1>
+<div class="fragment"><div class="line">i18n-cpp/</div>
+<div class="line">├── include/i18n/           # Header files</div>
+<div class="line">│   ├── i18n.hpp           # Main library header</div>
+<div class="line">│   └── core.hpp           # Core definitions and dependencies</div>
+<div class="line">├── test/                   # Test suite</div>
+<div class="line">│   ├── CMakeLists.txt</div>
+<div class="line">│   └── src/main.cpp</div>
+<div class="line">├── external/               # External dependencies</div>
+<div class="line">│   └── json/              # nlohmann/json library</div>
+<div class="line">├── docs/                   # Generated documentation</div>
+<div class="line">├── .github/workflows/      # CI/CD workflows</div>
+<div class="line">├── CMakeLists.txt         # Main build configuration</div>
+<div class="line">├── Doxyfile              # Doxygen configuration</div>
+<div class="line">├── LICENSE.MIT           # MIT License</div>
+<div class="line">└── README.md             # This file</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
+Contributing</h1>
+<p>Contributions are welcome! Please feel free to submit a Pull Request.</p>
+<h2><a class="anchor" id="autotoc_md26"></a>
+Development Setup</h2>
+<ol type="1">
+<li>Fork the repository</li>
+<li>Create a feature branch: <code>git checkout -b feature/your-feature</code></li>
+<li>Make your changes</li>
+<li>Add tests if applicable</li>
+<li>Ensure documentation is updated</li>
+<li>Run tests: <code>cmake --build . --target test</code></li>
+<li>Commit your changes: &lsquo;git commit -am 'Add some feature&rsquo;<code></code></li>
+<li><code>Push to the branch:</code>git push origin feature/your-feature`</li>
+<li>Submit a pull request</li>
+</ol>
+<h2><a class="anchor" id="autotoc_md27"></a>
+Code Style</h2>
+<ul>
+<li>Use C++17 features where appropriate</li>
+<li>Follow the existing code style</li>
+<li>Add documentation for new public APIs</li>
+<li>Include unit tests for new functionality</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md28"></a>
+License</h1>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE.MIT">LICENSE.MIT</a> file for details.</p>
+<h1><a class="anchor" id="autotoc_md29"></a>
+Acknowledgments</h1>
+<ul>
+<li><a href="https://github.com/nlohmann/json">nlohmann/json</a> - JSON library for modern C++</li>
+<li><a href="https://www.doxygen.nl/">Doxygen</a> - Documentation generation tool</li>
+<li><a href="https://cmake.org/">CMake</a> - Build system</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md30"></a>
+Support</h1>
+<p>If you find this library useful, please consider giving it a ⭐ star on GitHub!</p>
+<p>For questions or issues, please <a href="https://github.com/GTPSHAX/i18n/issues">open an issue</a> on GitHub. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

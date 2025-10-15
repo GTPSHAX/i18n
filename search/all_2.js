@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['classes_0',['Key Classes',['../index.html#autotoc_md11',1,'']]],
-  ['contributing_1',['Contributing',['../index.html#autotoc_md13',1,'']]]
+  ['acknowledgments_0',['Acknowledgments',['../index.html#autotoc_md29',1,'']]],
+  ['api_20reference_1',['API Reference',['../index.html#autotoc_md7',1,'']]]
 ];
