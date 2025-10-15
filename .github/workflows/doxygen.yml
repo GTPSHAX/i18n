@@ -18,12 +18,12 @@ jobs:
           fetch-depth: 0
 
       - name: Doxygen Action - Generate Docs
-        uses: mattnotmitt/doxygen-action@v1
+        uses: mattnotmitt/doxygen-action@v1.12
         with:
           doxyfile-path: ./Doxyfile 
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/html
